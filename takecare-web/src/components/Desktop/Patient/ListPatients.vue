@@ -5,7 +5,7 @@
         <v-card class='ma-3 pl-3 text-xs-left elevation-5 lighten-1 cursor'>
           <v-list>
             <!-- reveer como mostrar los que no tienen grupo o eliminar los grupos -->
-            <v-list-tile v-for="patient in patients" :key="patient.groupId">
+            <v-list-tile v-for="patient in patients" :key="patient.name" @click="openPatient(patient)">
               <v-list-tile-content>
                 <v-list-tile-title>{{ patient.name }}</v-list-tile-title>
               </v-list-tile-content>
@@ -22,6 +22,12 @@ export default {
   computed: {
     patients () {
       return this.$store.getters.getPatients
+    }
+  },
+  methods: {
+    openPatient (patient) {
+      this.$emit('show-patient')
+      this.$store.commit('setActualPatient', patient)
     }
   }
 }
